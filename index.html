@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Year Countdown</title>
+    <style>
+       body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(to right, #000428, #004e92);
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        text-align: center;
+       }
+       .countdown-container {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+       }
+       #countdown {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 20px;
+       }
+       .countdown-item {
+        background-color: rgba(255, 255, 255, 0.2);
+        padding: 20px;
+        border-radius: 10px;
+        min-width: 100px;
+       }
+       .countdown-item h3 {
+        font-size: 3rem;
+        margin: 0;
+       }
+       .countdown-item p {
+        margin: 10px 0 0;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 0.8rem;
+       }
+       #celebration {
+        display: none;
+        font-size: 2rem;
+        margin-top: 20px;
+        animation: pulse 1.5s infinite;
+       }
+       @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+       }
+    </style>
+</head>
+<body>
+    <div class="countdown-container">
+        <h1>New Year Countdown</h1>
+        <h1>2025</h1>
+        <div id="countdown">
+            <div class="countdown-item">
+                <h3 id="days">00</h3>
+                <p>Days</p>
+            </div>
+            <div class="countdown-item">
+                <h3 id="hours">00</h3>
+                <p>Hours</p>
+            </div>
+            <div class="countdown-item">
+                <h3 id="minutes">00</h3>
+                <p>Minutes</p>
+            </div>
+            <div class="countdown-item">
+                <h3 id="seconds">00</h3>
+                <p>Seconds</p>
+            </div>
+        </div>
+        <div id="celebration">🎉 HAPPY NEW YEAR 🎆</div>
+    </div>
+
+    <script>
+        function updateCountdown() {
+            const newYear = new Date('January 1, 2025 00:00:00');
+            const now = new Date();
+            const diff = newYear - now;
+
+            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = d < 10 ? '0' + d : d;
+            document.getElementById('hours').textContent = h < 10 ? '0' + h : h;
+            document.getElementById('minutes').textContent = m < 10 ? '0' + m : m;
+            document.getElementById('seconds').textContent = s < 10 ? '0' + s : s;
+
+            if (diff <= 0) {
+                clearInterval(countdownTimer);
+                document.getElementById('countdown').style.display = 'none';
+                document.getElementById('celebration').style.display = 'block';  
+            }
+        }
+
+        //initial call to display countdown immediately
+        updateCountdown();
+
+        //update countdown every second
+        const countdownTimer = setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
